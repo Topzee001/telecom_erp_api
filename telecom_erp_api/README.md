@@ -1,7 +1,7 @@
-# Telecom ERP Backend
+# Telecom ERP Backend, Capstone Project
 
 A Django REST Framework-powered backend for managing operations in a telecommunication company.  
-This ERP system provides tools for managing users, roles, permissions, departments, tasks, approvals, file uploads, and activity logs.
+This ERP system provides tools for managing users, roles, permissions, departments, tasks, approvals, file uploads, and activity logs(future implementation).
 
 ## Features
 
@@ -134,7 +134,7 @@ Method: POST
 Endpoint: /api/uploads/
 Description: Upload file
 
-<!-- 🧪 Running Tests
+<!-- Running Tests
 python manage.py test -->
 
 
