@@ -41,9 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'departments.apps.DepartmentsConfig',
     'accounts.apps.AccountsConfig',
     'approvals.apps.ApprovalsConfig',
-    'departments.apps.DepartmentsConfig',
     'tasks.apps.TasksConfig',
     'uploads.apps.UploadsConfig',
     'rest_framework',
@@ -55,7 +55,7 @@ INSTALLED_APPS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-AUTH_USER_MODEL = 'accounts.CustomeUser'
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
