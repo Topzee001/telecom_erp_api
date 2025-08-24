@@ -16,3 +16,8 @@ class isSelfOrAdmin(BasePermission):
 class ReadOnly(BasePermission):
     def has_permission(self, request, view):
         return request.method in SAFE_METHODS
+    
+class IsProfileOwnerOrAdmin(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        # obj is UserProfile, so compare obj.user with request.user
+        return obj.user == request.user or request.user.role == "ADMIN"

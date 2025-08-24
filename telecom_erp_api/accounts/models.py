@@ -54,7 +54,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
 
-    REQUIRED_FIELDS = [] # this will be email and password only, nothing else is required
+    REQUIRED_FIELDS = ['first_name', 'last_name'] # this will be email and password only, nothing else is required
 
     def __str__(self):
         return f"{self.email} ({self.role})"
