@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import UserProfile, Role
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
+from departments.serializers import DepartmentSerializer
 
 User = get_user_model()
 
@@ -19,12 +20,13 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     profile = UserProfileSerializer(read_only=True)
     department_name = serializers.CharField(source='department.name', read_only=True)
+    department_details = DepartmentSerializer(source='department', read_only=True)
 
     class Meta:
         model = User
         fields = [
             'id', 'email', 'role', 'department', 
-            'department_name', 'profile', 'date_joined', 'is_active'
+            'department_name', 'department_details', 'profile', 'date_joined', 'is_active' 
         ]
         read_only_fields = ('date_joined', 'is_active')
         extra_kwargs = {
