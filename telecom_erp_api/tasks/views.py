@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
 from .models import Task
-from .serializers import TaskSerializer
+from .serializers import TaskSerializer, TaskStatusUpdateSerializer
 from .permissions import IsManagerOrAdmin, CanViewOrUpdateTask
 
-class TaskCreateView(generics.ListCreateAPIView):
+class TaskListCreateView(generics.ListCreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = [IsManagerOrAdmin, permissions.IsAuthenticated]
@@ -31,3 +31,15 @@ class TaskDetailView(generics.RetrieveUpdateAPIView):
         
         serializer.save()
 
+class TaskStatusUpdateView(generics.UpdateAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskStatusUpdateSerializer
+    permission_classes = [permissions.IsAuthenticated, CanViewOrUpdateTask]
+
+class MyTaskListView(generics.ListAPIView):
+    """Engineers can see only their assigned tasks"""
+    serializer_class = TaskSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get_queryset(self):
+        return Task.objects.filter(assigned_to=self.request.user)
