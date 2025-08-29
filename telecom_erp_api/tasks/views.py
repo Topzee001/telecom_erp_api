@@ -1,23 +1,25 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError, PermissionDenied
 from .models import Task
 from .serializers import TaskSerializer, TaskStatusUpdateSerializer
-from .permissions import IsManagerOrAdmin, CanViewOrUpdateTask
+from .permissions import IsManagerOrAdmin, CanViewOrUpdateTask, CanViewTasks
 
 class TaskListCreateView(generics.ListCreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = [IsManagerOrAdmin, permissions.IsAuthenticated]
+    permission_classes = [CanViewTasks, permissions.IsAuthenticated]
 
-    def get_queryset(self):
-        # show only assigned tasks to others, show all other tasks to manager/admin
-        user = self.request.user
-        if user.role in ['ADMIN', 'MANAGER']:
-            return Task.objects.all()
-        return Task.objects.filter(assigned_to=user)
+    # def get_queryset(self):
+    #     # show only assigned tasks to others, show all other tasks to manager/admin
+    #     user = self.request.user
+    #     if user.role in ['ADMIN', 'MANAGER']:
+    #         return Task.objects.all()
+    #     return Task.objects.filter(assigned_to=user)
     
     def perform_create(self, serializer):
+        if self.request.user.role not in ['ADMIN', 'MANAGER']:
+            raise PermissionDenied("only admins and manager can create tasks")
         serializer.save(created_by=self.request.user)
         # return super().perform_create(serializer)
 

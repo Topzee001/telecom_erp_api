@@ -11,7 +11,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
     email= serializers.EmailField(source='user.email', read_only=True)
     class Meta:
         model = UserProfile
-        fields = [ 'full_name', 'phone_number', 'email', 'profile_picture']
+        # fields = [ 'full_name', 'phone_number', 'email', 'profile_picture']
+        fields = "__all__"
         read_only_fields = ('user', 'created_at')
     
     def get_full_name(self, obj):
@@ -28,7 +29,7 @@ class UserSerializer(serializers.ModelSerializer):
             'id', 'email', 'role', 'department', 
             'department_name', 'department_details', 'profile', 'date_joined', 'is_active' 
         ]
-        read_only_fields = ('date_joined', 'is_active')
+        read_only_fields = ('date_joined', 'is_active', 'role', 'email')
         extra_kwargs = {
             'password': {'write_only': True, 'required': False}
         }

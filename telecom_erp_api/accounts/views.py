@@ -35,7 +35,7 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
     serializer_class = UserProfileSerializer
     permission_classes = [IsProfileOwnerOrAdmin]
 
-class MeView(generics.RetrieveUpdateAPIView):
+class MeView(generics.RetrieveAPIView):
       
       """
       Get current user info and edit profile (name/phone/address).
