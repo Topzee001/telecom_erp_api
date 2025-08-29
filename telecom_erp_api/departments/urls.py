@@ -3,7 +3,7 @@ from .views import DepartmentDetailView, DepartmentView
 
 urlpatterns = [
     path('', DepartmentView.as_view(), name='department-list'),
-    path('department/<int:pk>', DepartmentView.as_view(), name='department-detail')
+    path('<int:pk>/', DepartmentDetailView.as_view(), name='department-detail')
 
 
 ]

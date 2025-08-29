@@ -24,6 +24,12 @@ from rest_framework.permissions import AllowAny
 
 User = get_user_model()
 
+
+class UserListView(generics.ListAPIView):
+     queryset = User.objects.all()
+     serializer_class = UserSerializer
+     permission_classes = [IsAdmin, IsAuthenticated]
+
 class UserProfileView(generics.RetrieveUpdateAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
