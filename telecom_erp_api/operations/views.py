@@ -2,6 +2,7 @@ from .serializers import OperationSerializer, OperationStatusUpdateSerializer, O
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied
+from django.utils import timezone
 from .models import Operation
 from django.db.models import Count, Q
 from .permissions import canCreateOperation, CanReviewOperation
@@ -59,7 +60,7 @@ class OperationStatusUpdateView(generics.UpdateAPIView):
         if new_status == 'reviewed':
             serializer.save(reviewed_by=user, approval_comments=approval_comments)
         elif new_status == 'approved':
-            serializer.save(reviewed_by=user, approval_comments=approval_comments)
+            serializer.save(reviewed_by=user, completed_at=timezone.now(), approval_comments=approval_comments)
         elif new_status == 'rejected':
             serializer.save(reviewed_by=user, approval_comments=approval_comments)
         else:
