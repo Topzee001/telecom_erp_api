@@ -77,6 +77,8 @@ SPECTACULAR_SETTINGS = {
     'TITLE': 'Telecom ERP API',
     'DESCRIPTION': 'Your project description',
     'VERSION': '1.0.0',
+    # 'COMPONENT_SPLIT_REQUEST': True,  # ← ADD THIS
+    # 'SCHEMA_PATH_PREFIX': '/api/',    # ← ADD THIS
 }
  # 'SERVE_INCLUDE_SCHEMA': False,
  # OTHER SETTINGS

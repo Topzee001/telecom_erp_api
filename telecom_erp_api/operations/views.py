@@ -1,4 +1,4 @@
-from .serializers import OperationSerializer, OperationStatusUpdateSerializer
+from .serializers import OperationSerializer, OperationStatusUpdateSerializer, OperationCreateSerializer
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied
@@ -11,12 +11,18 @@ class OperationListCreateView(generics.ListCreateAPIView):
     serializer_class = OperationSerializer
     permission_classes = [permissions.IsAuthenticated, canCreateOperation]
 
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return OperationCreateSerializer
+        return OperationSerializer
+
     def get_queryset(self):
         user = self.request.user
         if user.role in ['ADMIN', 'MANAGER']:
             return Operation.objects.all()
         # engineers can see operations they submitted
         return Operation.objects.filter(submitted_by=user)
+    
     def perform_create(self, serializer):
         task = serializer.validated_data['task']
 
@@ -25,6 +31,13 @@ class OperationListCreateView(generics.ListCreateAPIView):
             raise PermissionDenied("You can only create a operation report for your own task assigned")
         
         serializer.save(submitted_by=self.request.user)
+    
+    def create(self, request, *args, **kwargs):
+        try:
+            return super().create(request, *args, **kwargs)
+        except Exception as e:
+            print(f"Create error: {e}")
+            raise
 
 class OperationDetailsView(generics.RetrieveAPIView):
     queryset = Operation.objects.all()
@@ -45,9 +58,9 @@ class OperationStatusUpdateView(generics.UpdateAPIView):
 
         if new_status == 'reviewed':
             serializer.save(reviewed_by=user, approval_comments=approval_comments)
-        if new_status == 'approved':
+        elif new_status == 'approved':
             serializer.save(reviewed_by=user, approval_comments=approval_comments)
-        if new_status == 'rejected':
+        elif new_status == 'rejected':
             serializer.save(reviewed_by=user, approval_comments=approval_comments)
         else:
             serializer.save(approval_comments=approval_comments)

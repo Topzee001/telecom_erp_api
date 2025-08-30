@@ -21,6 +21,11 @@ class Operation(models.Model):
 
     task = models.ForeignKey('tasks.Task', on_delete=models.CASCADE, related_name='operations')
     operation_type = models.CharField(max_length=20, choices=OPERATION_TYPES)
+    location= models.CharField(max_length=255, help_text="Site name where operation was performed", null=True, blank=True)
+    latitude = models.DecimalField(max_digits=9, decimal_places=4, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=4, null=True, blank=True)
+    # equipments should be a seperate model in V2 with name and serial number
+    required_equipments=models.CharField(max_length=255, blank=True)
     notes = models.TextField(blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     submitted_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='submitted_operations')
