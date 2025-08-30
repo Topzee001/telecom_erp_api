@@ -4,7 +4,7 @@ from uploads.serializers import UploadSerializer
 
 class OperationSerializer(serializers.ModelSerializer):
     # fields to show names instead of IDs
-    task_title = serializers.CharField(source='tasks.title', read_only=True)
+    task_title = serializers.CharField(source='task.title', read_only=True)
     submitted_by_name = serializers.CharField(source='submitted_by.get_full_name', read_only=True)
     reviewed_by_name = serializers.CharField(source='reviewed_by.get_full_name', read_only=True)
     approved_by_name = serializers.CharField(source="approved_by.get_full_name", read_only=True)
@@ -25,7 +25,7 @@ class OperationSerializer(serializers.ModelSerializer):
             'reviewed_by', 'completed_at', 'created_at', 'updated_at'
         ]
 
-# class for manager to add comment when reviewing, incase of rejection
+
 class OperationStatusUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Operation

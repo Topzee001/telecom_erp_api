@@ -40,7 +40,7 @@ class OperationStatusUpdateView(generics.UpdateAPIView):
         new_status = serializer.validated_data.get('status')
         user = self.request.user
 
-        if new_status == 'reviewd':
+        if new_status == 'reviewed':
             serializer.save(reviewed_by=user)
         if new_status == 'approved':
             serializer.save(reviewed_by=user)
