@@ -3,6 +3,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied
 from .models import Operation
+from django.db.models import Count, Q
 from .permissions import canCreateOperation, CanReviewOperation
 
 
@@ -36,15 +37,37 @@ class OperationStatusUpdateView(generics.UpdateAPIView):
     permission_classes= [permissions.IsAuthenticated, CanReviewOperation]
 
     def perform_update(self, serializer):
-        operations = self.get_object()
+        operation = self.get_object()
         new_status = serializer.validated_data.get('status')
+        approval_comments = serializer.validated_data.get('approval_comments')
+
         user = self.request.user
 
         if new_status == 'reviewed':
-            serializer.save(reviewed_by=user)
+            serializer.save(reviewed_by=user, approval_comments=approval_comments)
         if new_status == 'approved':
-            serializer.save(reviewed_by=user)
+            serializer.save(reviewed_by=user, approval_comments=approval_comments)
         if new_status == 'rejected':
-            serializer.save(reviewed_by=user)
+            serializer.save(reviewed_by=user, approval_comments=approval_comments)
         else:
-            serializer.save()
+            serializer.save(approval_comments=approval_comments)
+
+class OperationSummaryView(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        if user.role not in ['ADMIN', 'MANAGER']:
+            return Response({"error": "Access denied"}, status=status.HTTP_403_FORBIDDEN)
+        
+        summary = Operation.objects.aggregate(
+            total_operations=Count('id'),
+            pending_operations=Count('id', filter=Q(status='pending')),
+            reviewed_operations=Count('id', filter=Q(status='reviewed')),
+            approved_operations=Count('id', filter=Q(status='approved')),
+            rejected_operations=Count('id', filter=Q(status='rejected')),
+        )
+
+        return Response(summary)
+
+

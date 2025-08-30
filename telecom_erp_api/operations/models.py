@@ -27,6 +27,7 @@ class Operation(models.Model):
     reviewed_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='reviewed_operations')
     approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='approved_operations')
     rejected_by = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='rejected_operations')
+    approval_comments = models.TextField(blank=True)
     completed_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

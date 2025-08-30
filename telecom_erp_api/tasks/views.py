@@ -1,9 +1,11 @@
 from django.shortcuts import render
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, status
 from rest_framework.exceptions import ValidationError, PermissionDenied
 from .models import Task
+from rest_framework.response import Response
 from .serializers import TaskSerializer, TaskStatusUpdateSerializer
 from .permissions import IsManagerOrAdmin, CanViewOrUpdateTask, CanViewTasks
+from django.db.models import Count, Q
 
 class TaskListCreateView(generics.ListCreateAPIView):
     queryset = Task.objects.all()
@@ -78,3 +80,19 @@ class MyTaskListView(generics.ListAPIView):
     
     def get_queryset(self):
         return Task.objects.filter(assigned_to=self.request.user)
+    
+
+class TaskSummaryView(generics.ListAPIView):
+    permission_classes= [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        if user.role not in ['ADMIN', 'MANAGER']:
+            return Response({"error": "Access denied"}, status=status.HTTP_403_FORBIDDEN)
+        
+        summary = Task.objects.aggregate(
+            total_tasks=Count('id'),
+            pending_tasks = Count('id', filter=Q(status='pending')),
+            completed_tasks=Count('id', filter=Q(status='completed'))
+        )
+        return Response(summary)

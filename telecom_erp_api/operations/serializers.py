@@ -29,6 +29,6 @@ class OperationSerializer(serializers.ModelSerializer):
 class OperationStatusUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Operation
-        fields = ['status', 'notes']
+        fields = ['status', 'approval_comments']
 
 
