@@ -31,13 +31,13 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def clean(self):
-        if self.due_date and self.due_date < timezone.now():
-            raise ValidationError({"due_date": "Due date cannot be in the past"})
+    # def clean(self):
+    #     if self.due_date and self.due_date < timezone.now():
+    #         raise ValidationError({"due_date": "Due date cannot be in the past"})
         
-    def save(self, *args, **kwargs):
-        self.full_clean()
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.full_clean()
+    #     super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.title} ({self.get_status_display()})"

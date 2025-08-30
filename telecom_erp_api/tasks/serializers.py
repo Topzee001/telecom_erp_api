@@ -8,6 +8,11 @@ class TaskSerializer(serializers.ModelSerializer):
     department_name = serializers.CharField(source='department.name', read_only=True)
     created_by_name = serializers.CharField(source='created_by.get_full_name', read_only=True)
 
+    def validate(self, attrs):
+        if 'due_date' in attrs and attrs['due_date'] < timezone.now():
+            raise serializers.ValidationError({"due_date": "Due date cannot be in the past"})
+        return attrs
+
     class Meta:
         model = Task
         # fields = "__all__"
@@ -20,7 +25,8 @@ class TaskStatusUpdateSerializer(serializers.ModelSerializer):
     """Engineers can have access to only update status"""
     class Meta:
         model = Task
-        fields = [
-            # 'id', 'title', 'description', 
-            'status'] 
-        # read_only = ['id', 'title', 'description']
+        fields = ['status']
+    
+    def validate(self, attrs):
+        return attrs
+

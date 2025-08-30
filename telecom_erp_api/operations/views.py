@@ -1,8 +1,8 @@
-from .serializers import OperationSerializer, OperationsStatusUpdateSerializer
+from .serializers import OperationSerializer, OperationStatusUpdateSerializer
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied
-from .models import Operations
+from .models import Operation
 from .permissions import canCreateOperation, CanReviewOperation
 
 
@@ -13,9 +13,9 @@ class OperationListCreateView(generics.ListCreateAPIView):
     def get_queryset(self):
         user = self.request.user
         if user.role in ['ADMIN', 'MANAGER']:
-            return Operations.objects.all()
+            return Operation.objects.all()
         # engineers can see operations they submitted
-        return Operations.objects.filter(submitted_by=user)
+        return Operation.objects.filter(submitted_by=user)
     def perform_create(self, serializer):
         task = serializer.validated_data['task']
 
@@ -26,13 +26,13 @@ class OperationListCreateView(generics.ListCreateAPIView):
         serializer.save(submitted_by=self.request.user)
 
 class OperationDetailsView(generics.RetrieveAPIView):
-    queryset = Operations.objects.all()
+    queryset = Operation.objects.all()
     serializer_class= OperationSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 class OperationStatusUpdateView(generics.UpdateAPIView):
-    queryset = Operations.objects.all()
-    serializer_class =OperationsStatusUpdateSerializer
+    queryset = Operation.objects.all()
+    serializer_class =OperationStatusUpdateSerializer
     permission_classes= [permissions.IsAuthenticated, CanReviewOperation]
 
     def perform_update(self, serializer):

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Operations
+from .models import Operation
 from uploads.serializers import UploadSerializer
 
 class OperationSerializer(serializers.ModelSerializer):
@@ -13,11 +13,11 @@ class OperationSerializer(serializers.ModelSerializer):
     uploads = UploadSerializer(many=True, read_only=True)
 
     class Meta:
-        model = Operations
+        model = Operation
         fields = [
             'id', 'task', 'task_title', 'operation_type', 'notes', 'status',
             'submitted_by', 'submitted_by_name', 'reviewed_by', 'reviewed_by_name',
-            'approved_by', 'approvec_by_name', 'rejected_by', 'rejected_by_name', 'completed_at',
+            'approved_by', 'approved_by_name', 'rejected_by', 'rejected_by_name', 'completed_at',
             'created_at', 'updated_at', 'uploads'
         ]
         read_only = [
@@ -26,9 +26,9 @@ class OperationSerializer(serializers.ModelSerializer):
         ]
 
 # class for manager to add comment when reviewing, incase of rejection
-class OperationsStatusUpdateSerializer(serializers.ModelSerializer):
+class OperationStatusUpdateSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Operations
+        model = Operation
         fields = ['status', 'notes']
 
 
