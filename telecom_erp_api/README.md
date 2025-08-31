@@ -118,4 +118,74 @@ python manage.py runserver
 ---
 
 ## 📊 Database Schema
+- **User** → Department (FK)  
+- **Task** → Department (FK), User (FK)  
+- **Operation** → Task (FK), User (FK)  
+- **Upload** → Operation (FK), User (FK)  
+
+---
+
+## 🔐 Security Features
+- ✅ JWT token authentication with blacklisting  
+- ✅ Role-based permission classes  
+- ✅ Object-level access control  
+- ✅ Input validation and sanitization  
+- ✅ Secure file upload handling  
+
+---
+
+## 🚦 Testing
+
+```bash
+# Run all tests
+python manage.py test
+
+# Run tests for a specific app
+python manage.py test accounts.tests
+```
+## 📝 API Documentation
+Interactive Swagger documentation is available at:
+👉 http://localhost:8000/api/swagger/
+
+## 🚀 Deployment
+
+##Production Setup
+
+1. Set DEBUG=False in environment variables
+2. Configure production database (MySQL/PostgreSQL)
+3. Set up static file serving (Whitenoise/Nginx)
+4. Configure media file storage (AWS S3 recommended)
+5. Set up WSGI server (Gunicorn + Nginx)
+   
+## Environment Variables
+```
+DEBUG=False
+SECRET_KEY=your-production-secret-key
+DATABASE_URL=mysql://user:password@host:port/database
+ALLOWED_HOSTS=yourdomain.com,www.yourdomain.com
+```
+
+## 🤝 Contributing
+1. Fork the repository
+2. Create feature branch → git checkout -b feature/amazing-feature
+3. Commit changes → git commit -m 'Add amazing feature'
+4. Push to branch → git push origin feature/amazing-feature
+5. Open a Pull Request
+   
+## 📄 License
+This project is licensed under the MIT License – see the LICENSE file for details.
+
+## 👨‍💻 Author
+Ibrahim Sakariyah Temitope (Topzee)
+GitHub: @topzee001
+LinkedIn: Ibrahim Sakariyah
+
+## ALX Software Engineering Program
+🎓 ALX Capstone Project
+This project was developed as the Capstone Project for the ALX Software Engineering program, demonstrating proficiency in:
+- Django REST Framework
+- Database design
+- Authentication systems
+- API development
+
 
