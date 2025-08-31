@@ -44,7 +44,7 @@ This ERP system provides **role-based access control** for managing users, depar
 
 ```bash
 # 1. Clone repository
-git clone <your-repo-url>
+git clone [telecom api repo](https://github.com/Topzee001/telecom_erp_api.git)
 cd telecom_erp_api
 
 # 2. Create virtual environment
