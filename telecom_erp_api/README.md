@@ -67,7 +67,7 @@ python manage.py createsuperuser
 
 # 7. Run server
 python manage.py runserver
-
+```
 ## 🔑 API Endpoints
 
 ### Authentication
