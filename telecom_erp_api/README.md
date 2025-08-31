@@ -67,3 +67,55 @@ python manage.py createsuperuser
 
 # 7. Run server
 python manage.py runserver
+
+## 🔑 API Endpoints
+
+### Authentication
+- `POST /api/accounts/login/` – JWT login  
+- `POST /api/accounts/register/` – User registration  
+- `POST /api/accounts/logout/` – JWT logout  
+- `POST /api/accounts/refresh/` – Token refresh  
+
+### Users & Profiles
+- `GET /api/accounts/me/` – Current user profile  
+- `GET /api/accounts/users/` – List users (Admin)  
+- `GET/PUT /api/accounts/users/details/{id}/` – User details  
+
+### Departments
+- `GET/POST /api/departments/` – List/create departments  
+- `GET/PUT/DELETE /api/departments/{id}/` – Department CRUD  
+
+### Tasks
+- `GET/POST /api/tasks/` – List/create tasks  
+- `GET /api/tasks/my-tasks/` – User's assigned tasks  
+- `PATCH /api/tasks/status/{id}/` – Update task status  
+- `GET /api/tasks/summary/` – Task statistics (Admin/Manager)  
+
+### Operations
+- `GET/POST /api/operations/` – List/create operations  
+- `PATCH /api/operations/approvals/{id}/` – Approve/reject operations  
+- `GET /api/operations/summary/` – Operation statistics  
+
+### Uploads
+- `POST /api/uploads/` – Upload operation images  
+
+---
+
+## 🎯 Usage Examples
+
+### Engineer Workflow
+1. Login with engineer credentials  
+2. View assigned tasks → `GET /api/tasks/my-tasks/`  
+3. Create operation report → `POST /api/operations/`  
+4. Upload evidence images → `POST /api/uploads/`  
+
+### Manager Workflow
+1. Login with manager credentials  
+2. Review pending operations → `GET /api/operations/`  
+3. Approve/Reject with comments → `PATCH /api/operations/approvals/{id}/`  
+4. View department statistics → `GET /api/tasks/summary/`  
+
+---
+
+## 📊 Database Schema
+
