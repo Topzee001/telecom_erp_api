@@ -75,7 +75,7 @@ REST_FRAMEWORK = {
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Telecom ERP API',
-    'DESCRIPTION': 'Your project description',
+    'DESCRIPTION': "A Django REST Framework-powered backend for managing operations in a telecommunication company. This ERP system provides tools for managing users, roles, permissions, departments, tasks, approvals, file uploads, and activity logs(future implementation).",
     'VERSION': '1.0.0',
     # 'COMPONENT_SPLIT_REQUEST': True,  # ← ADD THIS
     # 'SCHEMA_PATH_PREFIX': '/api/',    # ← ADD THIS

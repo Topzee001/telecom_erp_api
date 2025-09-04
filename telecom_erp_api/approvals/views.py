@@ -33,27 +33,27 @@ class OperationApprovalsListView(generics.ListAPIView):
     
 
     # add the below in the operations view if this seperate approval will be used
-    """
+#     """
     
-    # operations/views.py
-class OperationStatusUpdateView(generics.UpdateAPIView):
-    queryset = Operation.objects.all()
-    serializer_class = OperationStatusUpdateSerializer
-    permission_classes = [permissions.IsAuthenticated, CanReviewOperation]
+#     # operations/views.py
+# class OperationStatusUpdateView(generics.UpdateAPIView):
+#     queryset = Operation.objects.all()
+#     serializer_class = OperationStatusUpdateSerializer
+#     permission_classes = [permissions.IsAuthenticated, CanReviewOperation]
 
-    def perform_update(self, serializer):
-        operation = self.get_object()
-        new_status = serializer.validated_data.get('status')
-        user = self.request.user
+#     def perform_update(self, serializer):
+#         operation = self.get_object()
+#         new_status = serializer.validated_data.get('status')
+#         user = self.request.user
 
-        # Track who performed each action
-        if new_status == 'reviewed':
-            serializer.save(reviewed_by=user)
-        elif new_status == 'approved':
-            serializer.save(approved_by=user, completed_at=timezone.now())
-        elif new_status == 'rejected':
-            serializer.save(rejected_by=user)
-        else:
-            serializer.save()
+#         # Track who performed each action
+#         if new_status == 'reviewed':
+#             serializer.save(reviewed_by=user)
+#         elif new_status == 'approved':
+#             serializer.save(approved_by=user, completed_at=timezone.now())
+#         elif new_status == 'rejected':
+#             serializer.save(rejected_by=user)
+#         else:
+#             serializer.save()
     
-    """
+#     """
