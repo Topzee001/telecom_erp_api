@@ -57,7 +57,7 @@ pip install -r requirements.txt
 
 # 4. Environment setup
 cp .env.example .env
-# Edit .env with your database and secret key
+# Edit .env with your database URL and secret key
 
 # 5. Run migrations
 python manage.py migrate
@@ -187,5 +187,3 @@ This project was developed as the Capstone Project for the ALX Software Engineer
 - Database design
 - Authentication systems
 - API development
-
-

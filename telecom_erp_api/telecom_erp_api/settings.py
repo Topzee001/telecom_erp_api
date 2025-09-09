@@ -138,7 +138,7 @@ WSGI_APPLICATION = 'telecom_erp_api.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         # Fallback to a local postgres database for development if DATABASE_URL is not set
-        default='postgresql://djangoroot:PIbro@124@localhost:5432/telecom_erp',
+        default=os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3'),
         conn_max_age=600,
         conn_health_checks=True,
     )
