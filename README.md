@@ -145,7 +145,7 @@ python manage.py test accounts.tests
 ```
 ## 📝 API Documentation
 Interactive Swagger documentation is available at:
-👉 http://localhost:8000/api/swagger/
+[http://localhost:8000/api/swagger/](https://telecom-erp-api.onrender.com/api/swagger/)
 
 ## 🚀 Deployment
 
