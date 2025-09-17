@@ -7,7 +7,7 @@ This ERP system provides **role-based access control** for managing users, depar
 
 ## Features
 
-### ✅ Implemented in V1
+### Features Implemented
 - **JWT Authentication** – Secure login/logout/refresh endpoints  
 - **Role-Based Access Control** – Admin, Manager, Engineer, Staff permissions  
 - **Department Management** – Create and organize teams  
