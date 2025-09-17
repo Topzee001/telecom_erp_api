@@ -5,7 +5,7 @@ This ERP system provides **role-based access control** for managing users, depar
 
 ---
 
-## 🚀 Features
+## Features
 
 ### ✅ Implemented in V1
 - **JWT Authentication** – Secure login/logout/refresh endpoints  
@@ -20,7 +20,7 @@ This ERP system provides **role-based access control** for managing users, depar
 
 ---
 
-## 📋 Role Permissions
+## Role Permissions
 
 - **Admins:** Full system access  
 - **Managers:** Department management, operation approvals  
@@ -29,7 +29,7 @@ This ERP system provides **role-based access control** for managing users, depar
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Backend:** Django 4.2 + Django REST Framework  
 - **Database:** MySQL  
@@ -40,7 +40,7 @@ This ERP system provides **role-based access control** for managing users, depar
 
 ---
 
-## 📦 Installation
+## Installation
 
 ```bash
 # 1. Clone repository
@@ -68,7 +68,7 @@ python manage.py createsuperuser
 # 7. Run server
 python manage.py runserver
 ```
-## 🔑 API Endpoints
+## API Endpoints
 
 ### Authentication
 - `POST /api/accounts/login/` – JWT login  
@@ -101,7 +101,7 @@ python manage.py runserver
 
 ---
 
-## 🎯 Usage Examples
+## Usage Examples
 
 ### Engineer Workflow
 1. Login with engineer credentials  
@@ -125,7 +125,7 @@ python manage.py runserver
 
 ---
 
-## 🔐 Security Features
+## Security Features
 - ✅ JWT token authentication with blacklisting  
 - ✅ Role-based permission classes  
 - ✅ Object-level access control  
@@ -134,7 +134,7 @@ python manage.py runserver
 
 ---
 
-## 🚦 Testing
+## Testing
 
 ```bash
 # Run all tests
@@ -143,11 +143,11 @@ python manage.py test
 # Run tests for a specific app
 python manage.py test accounts.tests
 ```
-## 📝 API Documentation
+## API Documentation
 Interactive Swagger documentation is available at:
 [Documentation](https://telecom-erp-api.onrender.com/api/swagger/)
 
-## 🚀 Deployment
+## Deployment
 
 ##Production Setup
 
@@ -165,17 +165,17 @@ DATABASE_URL=mysql://user:password@host:port/database
 ALLOWED_HOSTS=yourdomain.com,www.yourdomain.com
 ```
 
-## 🤝 Contributing
+## Contributing
 1. Fork the repository
 2. Create feature branch → git checkout -b feature/amazing-feature
 3. Commit changes → git commit -m 'Add amazing feature'
 4. Push to branch → git push origin feature/amazing-feature
 5. Open a Pull Request
    
-## 📄 License
+## License
 This project is licensed under the MIT License – see the LICENSE file for details.
 
-## 👨‍💻 Author
+## Author
 Ibrahim Sakariyah Temitope (Topzee)
 GitHub: @topzee001
 LinkedIn: Ibrahim Sakariyah
